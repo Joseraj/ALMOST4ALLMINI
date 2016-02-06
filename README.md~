@@ -1,80 +1,49 @@
 # ALMOST4ALLMINI
-Arduino Mini board for Mysensors
+Arduino Mini board for [Mysensors](http://www.mysensors.org/)
+
+This board is intended to be valid for almost any sensor/node available on mysensors site.
+
+I hate to fight sharing 1 pin for the grounds.
+The main goal is to have on the board independent connectors for every sensor that i want to use in one node.
+
+The board can be powered with battery (from 0,9 to 6,5V), 3.3V or 5V regulated.
+The arduino pro mini is powered with 3.3V or battery, so that is the refference for analog I/O. (No 5V)
+
+There is the posibility of using some SMD resistors, capcitors and ICs. All of this are optional, but adding this hardware on board allows to use more simple and economic sensors and some extras (low cost temperature sensor, battery monitor, external eprom, signing)
+
+[Hardware](http://www.mysensors.org/)
+
+[Power](http://www.mysensors.org/)
+
+Sensors and software:
+[Door, Window and Push-button Sensor](http://www.mysensors.org/)
+[Distance Sensor](http://www.mysensors.org/)
+[Real Time Clock Module, LCD Display and Controller Time](http://www.mysensors.org/)
+[Dust Level Sensor](http://www.mysensors.org/)
+[Gas Sensor](http://www.mysensors.org/)
+[Humidity Sensor](http://www.mysensors.org/)
+[Infrared Sender and Receiver](http://www.mysensors.org/)
+[Light Sensor](http://www.mysensors.org/)
+[Moisture Sensor](http://www.mysensors.org/)
+[Motion Sensor](http://www.mysensors.org/)
+[Pressure Sensor](http://www.mysensors.org/)
+[Parking Sensor](http://www.mysensors.org/)
+[Power Meter Pulse Sensor](http://www.mysensors.org/)
+[Water Meter Pulse Sensor](http://www.mysensors.org/)
+[Rain Gauge](http://www.mysensors.org/)
+[Relay Actuator](http://www.mysensors.org/)
+[RFID Lock Sensor](http://www.mysensors.org/)
+[Secret Knock Sensor](http://www.mysensors.org/)
+[Servo Control Actuator](http://www.mysensors.org/)
+[Temperature Sensor](http://www.mysensors.org/)
+[UV Sensor](http://www.mysensors.org/)
+
+Extras:
+[Temperature Sensor (NTC)](http://www.mysensors.org/)
+[Light Sensor (LDR)](http://www.mysensors.org/)
 
 
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licencia de Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">ALMOST4ALLMINI</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/Joseraj/ALMOST4ALLMINI" property="cc:attributionName" rel="cc:attributionURL">joseraj</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Reconocimiento-CompartirIgual 4.0 Internacional License</a>.
 
-
-# RollerShutterNode
-
-
-It is a board for controlling rollershutter (0-100%) and detecting end stops with ACS712 for current sense of motor. It can be used as a relay board too.
-You can connect 3 push buttons (UP/DOWN/STOP) and/or external i2c device (for tactile, gesture...). 
-It can control 12-220V motors.
-
-It is derived in two versions : 
-- NRF24 smd
-- RFM69(H)W
-
-I will use it with Mysensors lib.
-
-Size : 47x48 (mm)
-Components size 0805.
-
-Note : it is still in dev.
-
-####General spec
-- Atmel328p TQFP
-- NRF24 smd or RFM69(H)W footprint
-- ATSHA204A authentication footprint
-- eeprom footprint for OTA
-- ACS712 5Amp footprint
-- 2x 10Amp relays : 1xNO G5Q-1A-5VDC and 1xNO-NC G5Q-1-EU-5VDC driven by dual relay driver
-- AC/DC Stepdown 220V-5V : HILINK_HLK-PM01 protected by varistor & fuse
-- 5mm pitch screw terminals
-- I2C connector for optional tactile sensor chip
-
-####Arduino Pin description
-- A0 : ADC ACS712
-- A3 : ATSHA204A data
-- A2 : Down Relay
-- A1 : Up relay
-- I2C connector : SDA, SCL, D3, D4
-- A7 : CTN thermistor to check temperature under Hilink Stepdown
-
-####Connectors 
-- FTDI for bootloading
-- AVRSPI for programming Atmel328p
-- D3 : optional IO
-- D4 : optional IO
-- D6 : Up button
-- D7 : Down button
-- D5 : Stop button
-- gnd
-
-####AC Connector description
-- N : Neutral (Neutre)
-- L : Live (Phase)
-- 12_220 : optional. If using 220v motor, you need to tie it with Source on Motor Connector
-
-
-####Motor Connector description
-- Up : Motor Up 
-- Down : Motor Down
-- Source : 12-24v motor source. If using 220v motor, tie it with 12_220 on AC Connector
-
-### Board overview  
-<img src="https://raw.githubusercontent.com/scalz/MySensors-HW/development/RollerShutterNode/img/top_overview1.png" alt="Top">    
-
-<img src="https://raw.githubusercontent.com/scalz/MySensors-HW/development/RollerShutterNode/img/bottom_overview.png" alt="Bottom">&nbsp; 
-
-
-####Notes : 
-- there was an error on v1.0. I did so much changes in routing that I missed to change something on acs. So the spst relay is always on. too bad.
-This is fixed in v1.1
-
-####TODO 
-- sketch for rollershutter (buttons, calibration functions, controlling 0-100%...). 
-- add Bill of Materials
-
-Note : it is still in dev. 
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licencia de Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">ALMOST4ALLMINI</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/Joseraj/ALMOST4ALLMINI" property="cc:attributionName" rel="cc:attributionURL">joseraj</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons 
+Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)
+</a>.
