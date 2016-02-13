@@ -15,7 +15,7 @@ There is the possibility of using some SMD resistors, capacitors and ICs. All of
 
 [Hardware](http://www.mysensors.org/)
 
-[Power](../wiki/Power)
+[Power](/wiki/Power)
 
 Sensors and software:
 
