@@ -1,0 +1,73 @@
+Use any Arduino pin for transmission with the IRremote libary by soft PWM
+
+      Rate This
+
+I really love Ken Shiriffs IRremote libary for Arduino but it had a dealbreaking limitation for my current project: it makes use of the PWM functionality and is therefore bound to pin 3. As I really needed all PWM pins for other stuff and didn’t want to upgrade to a Mega board, I worked out this hack.
+
+A IR signal consists of on- and off states and that is literally switching the IR LED on and off in special periods. While a off state is actually switching the LED off at all, a on state is more like blinking with a really high frequency of 38kHz. This is a typical task for PWM but after all it is again nothing else than just switching it on and off.
+
+First at all we have to find out how fast we have to switch on/off with this frequency.
+
+36000 / 1s = 1 / n * s
+n = 1/36000s =  27,7 µs
+So we have to switch it on and off every 27,7µs (fortunately the delayMicroseconds function works accurately for values above 3µs) and it’s simple as this:
+
+while (OnStateDuration) {
+  digitalWrite( sendPin, HIGH);
+  delayMicroseconds(14);
+  digitalWrite( sendPin, LOW);
+  delayMicroseconds(14);
+}
+=== Instruction ===
+You can download the modified libary here or go through these steps:
+
+Replace the following methods in IRremote.cpp:
+
+void IRsend::mark(int time) {
+  unsigned long n = micros();
+  while (micros()-n < time) {
+    digitalWrite(irparams.sendpin, HIGH);
+    delayMicroseconds(irparams.pulselength);
+    digitalWrite(irparams.sendpin, LOW);
+    delayMicroseconds(irparams.pulselength);
+  }
+}
+
+void IRsend::space(int time) {
+  digitalWrite(irparams.sendpin, LOW);
+  delayMicroseconds(time);
+}
+
+void IRsend::enableIROut(unsigned int khz) {
+  irparams.pulselength = 500 / khz;
+  pinMode(irparams.sendpin, OUTPUT);
+  digitalWrite(irparams.sendpin, LOW); // When not sending PWM, we want it low
+}
+
+IRrecv::IRrecv(int recvpin)
+{
+  irparams.recvpin = recvpin;
+  irparams.blinkflag = 0;
+}
+Add the sendpin parameter to the constructor signature in IRremote.h:
+
+class IRsend
+{
+public:
+  IRsend(int sendpin);
+Define the sendpin and period variables in IRremoteInt.h:
+
+typedef struct {
+  uint8_t sendpin;
+  unsigned int pulselength;
+
+When using in a sketch, you have to specify the pin for transmission:
+
+IRsend irsend;  // deprecated
+IRsend irsend(10);  // send on pin 10
+
+Flattr this
+
+======
+
+PS: If you’re experimenting with IR you might find this useful. You can use an ordinary red LED instead of a IR LED on short a short distance of let’s say about 2 or 3 cm. I accident found this and I’m very happy about not needing to use my mobile phones camera to check the IR light any more.
