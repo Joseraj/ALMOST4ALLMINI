@@ -1,5 +1,5 @@
 # ALMOST4ALLMINI
-<<<<<<< HEAD
+
 Arduino Mini board for [Mysensors](http://www.mysensors.org/)
 
 This board is intended to be valid for almost any sensor/node available on mysensors site.
